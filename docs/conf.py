@@ -10,6 +10,7 @@ try:
     release = importlib.metadata.version(project)
 except importlib.metadata.PackageNotFoundError:
     release = "latest"
+
 version = release
 
 nitpicky = True

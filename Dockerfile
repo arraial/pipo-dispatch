@@ -25,7 +25,7 @@ ENV APP_NAME="pipo_dispatch" \
     POETRY_VIRTUALENVS_IN_PROJECT=true \
     # do not ask interactive questions
     POETRY_NO_INTERACTION=1 \
-    POETRY_CACHE_DIR=/tmp/poetry_cache \
+    POETRY_CACHE_DIR="/tmp/poetry_cache" \
     \
     # requirements + virtual environment paths
     PYSETUP_PATH="/opt/pysetup" \
@@ -58,7 +58,7 @@ ARG PROGRAM_VERSION=0.0.0
 RUN poetry version $PROGRAM_VERSION
 
 # install runtime dependencies, internally uses $POETRY_VIRTUALENVS_IN_PROJECT
-RUN poetry bundle venv --with opentelemetry --without dev $VENV_PATH --clear
+RUN RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry bundle venv --clear --with opentelemetry --without dev $VENV_PATH
 
 # `production` image used for runtime
 FROM base AS production
