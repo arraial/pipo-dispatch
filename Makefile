@@ -27,7 +27,6 @@ help:
 	$(PRINT) "    dist          package application for distribution"
 	$(PRINT) "    image         build app docker image"
 	$(PRINT) "    run_image     run app docker image in a container"
-	$(PRINT) "    run_app       run docker compose"
 
 .PHONY: poetry_setup
 poetry_setup:

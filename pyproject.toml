@@ -38,9 +38,8 @@ fastapi = { version = "~0.115.2", extras = ["standard"] }
 faststream = { version = "0.5.28", extras = ["rabbit", "prometheus"] }
 
 [tool.poetry.group.opentelemetry.dependencies]
-opentelemetry-sdk = { version = "~1.27.0" }
-opentelemetry-exporter-jaeger = { version = "~1.21.0" }
-opentelemetry-exporter-prometheus = { version = "0.48b0" }
+opentelemetry-exporter-prometheus = "0.48b0"
+opentelemetry-instrumentation-fastapi = "0.48b0"
 
 [tool.poetry.group.dev.dependencies]
 setuptools = "*"

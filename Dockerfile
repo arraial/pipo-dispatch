@@ -58,7 +58,7 @@ ARG PROGRAM_VERSION=0.0.0
 RUN poetry version $PROGRAM_VERSION
 
 # install runtime dependencies, internally uses $POETRY_VIRTUALENVS_IN_PROJECT
-RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry bundle venv --clear --with opentelemetry --without dev $VENV_PATH
+RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry bundle venv --clear --without dev $VENV_PATH
 
 # `production` image used for runtime
 FROM base AS production
