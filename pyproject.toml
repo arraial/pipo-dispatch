@@ -33,9 +33,9 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.11"
 pydantic = "~2.9.0"
-fastapi = { version = "~0.115.2", extras = ["standard", "prometheus"] }
-faststream = { version = "0.5.28", extras = ["rabbit"] }
 dynaconf = { version = "~3.2.0", extras = ["yaml"] }
+fastapi = { version = "~0.115.2", extras = ["standard"] }
+faststream = { version = "0.5.28", extras = ["rabbit", "prometheus"] }
 
 [tool.poetry.group.opentelemetry.dependencies]
 opentelemetry-sdk = { version = "~1.27.0" }
