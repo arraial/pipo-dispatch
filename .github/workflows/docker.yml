@@ -57,8 +57,8 @@ jobs:
       uses: docker/metadata-action@v5
       with:
         images: |
+          ${{ steps.prepare.outputs.image }}
           ghcr.io/${{ steps.prepare.outputs.image }}
-          docker.io/${{ steps.prepare.outputs.image }}
         tags: |
           type=raw,value=latest
           type=raw,value=${{ steps.prepare.outputs.version }}
