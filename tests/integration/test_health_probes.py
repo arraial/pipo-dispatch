@@ -7,6 +7,7 @@ from pipo_dispatch.config import settings
 from pipo_dispatch._queues import get_broker
 from pipo_dispatch.app import create_app
 
+
 @pytest.mark.integration
 class TestHealthProbes:
     @pytest.fixture
