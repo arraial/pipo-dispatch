@@ -13,14 +13,13 @@ async def liveness_ping(scope):
     return AsgiResponse(b"", status_code=settings.probes.liveness.status_code)
 
 
-def create_app(router=None) -> FastAPI:
-    router = router or get_router()
+def create_app(broker=None) -> FastAPI:
+    broker = broker or get_router()
     application = FastAPI()
-    application.include_router(router)
     application.mount(settings.probes.liveness.endpoint, liveness_ping)
     application.mount(
         settings.probes.readiness.endpoint,
-        make_ping_asgi(router.broker, timeout=settings.probes.readiness.timeout),
+        make_ping_asgi(broker, timeout=settings.probes.readiness.timeout),
     )
     application.mount(settings.telemetry.metrics.endpoint, make_asgi_app(REGISTRY))
     FastAPIInstrumentor.instrument_app(application)
