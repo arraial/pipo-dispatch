@@ -10,7 +10,7 @@ from pipo_dispatch.config import settings
 
 @get
 async def liveness_ping(scope):
-    return AsgiResponse(b"", status_code=200)
+    return AsgiResponse(b"", status_code=settings.probes.liveness.status_code)
 
 
 def create_app(router=None) -> FastAPI:
