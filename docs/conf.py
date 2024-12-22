@@ -56,7 +56,7 @@ html_theme_options = {
     "source_branch": "main",
     "source_directory": "docs/",
 }
-html_baseurl = "https://arraial.github.io/pipo_hub"
+html_baseurl = "https://arraial.github.io/pipo_dispatch"
 
 # -- Options for todo extension ----------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/extensions/todo.html#configuration
