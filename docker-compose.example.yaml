@@ -1,0 +1,62 @@
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+
+services:
+  hub:
+    image: arraial/pipo_hub:0.1.1
+    container_name: pipo.hub
+    env_file: .env
+    networks:
+      - backend
+    ports:
+      - "8080:8080"
+    deploy:
+      restart_policy:
+        delay: 5s
+        max_attempts: 3
+        condition: on-failure
+
+  dispatch:
+    container_name: pipo.dispatch
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    env_file: .env
+    networks:
+      - backend
+    ports:
+      - "8081:8080"
+    deploy:
+      restart_policy:
+        delay: 5s
+        max_attempts: 3
+        condition: on-failure
+
+  otel:
+    container_name: pipo.otel
+    image: otel/opentelemetry-collector:0.114.0
+    restart: on-failure
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./otel-collector-config.example.yaml:/etc/otel-collector-config.yaml
+    networks:
+      - backend
+    ports:
+      - "8888:8888"   # Prometheus metrics exposed by the collector
+      - "8889:8889"   # Prometheus exporter metrics
+      - "4317:4317"   # OTLP gRPC receiver
+      - "13133:13133" # health_check extension
+
+  jaeger:
+    container_name: pipo.jaeger
+    image: jaegertracing/all-in-one:1.63.0
+    restart: on-failure
+    networks:
+      - frontend
+      - backend
+    ports:
+      - "6831:6831/udp" # UDP port for Jaeger agent
+      - "16686:16686"   # Web UI

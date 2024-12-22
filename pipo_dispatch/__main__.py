@@ -5,24 +5,25 @@ import sys
 
 import uvicorn
 from pipo_dispatch.config import settings
-from pipo_dispatch.app import get_app
+from pipo_dispatch.app import create_app
 
 
 
 def main():
     logging.basicConfig(
-        level=settings.log.level,
-        format=settings.log.format,
-        encoding=settings.log.encoding,
+        level=settings.telemetry.log.level,
+        format=settings.telemetry.log.format,
+        encoding=settings.telemetry.log.encoding,
     )
 
     logger = logging.getLogger(__name__)
 
-    app = get_app()
+    app = create_app()
 
     try:
         uvicorn.run(
             app,
+            host=settings.probes.host,
             port=settings.probes.port,
             log_level=settings.probes.log_level
         )

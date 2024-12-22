@@ -1,16 +1,25 @@
 default:
-  log:
-    level: INFO
-    encoding: utf-8
-    format: "%(asctime)s - %(levelname)s - %(name)s - %(message)s"
+  telemetry:
+    service: "@format {this.APP}"
+    local: false
+    log:
+      level: INFO
+      encoding: utf-8
+      format: "%(asctime)s - %(levelname)s - %(name)s - %(message)s"
+    metrics:
+      service: "@format {this.APP}"
+      endpoint: "/metrics"
   probes:
-    port: 80
+    host: "0.0.0.0"
+    port: 8080
     log_level: info
+    liveness:
+      endpoint: "/livez"
     readiness:
       timeout: 5
+      endpoint: "/readyz"
   # Application name
-  app:
-  main_task_name: "main_task"
+  app: pipo.dispatch
   player:
     queue:
       broker:
@@ -50,8 +59,10 @@ default:
           routing_key: provider
 test:
   dynaconf_merge: true
-  log:
-    level: DEBUG
+  telemetry:
+    local: true
+    log:
+      level: INFO
   channel: "test-channel"
   voice_channel: "test-vchannel"
   server_id: "TEST"
