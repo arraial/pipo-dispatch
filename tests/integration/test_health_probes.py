@@ -3,14 +3,13 @@ import pytest
 from fastapi.testclient import TestClient
 
 from pipo_dispatch.config import settings
-from pipo_dispatch._queues import get_router
 from pipo_dispatch.app import create_app
 
 @pytest.mark.integration
 class TestHealthProbes:
     @pytest.fixture
     async def client(self):
-        with TestClient(create_app(get_router())) as test_client:
+        with TestClient(create_app()) as test_client:
             yield test_client
 
     def test_livez(self, client):

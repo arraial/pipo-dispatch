@@ -65,9 +65,6 @@ test:
     local: true
     log:
       level: INFO
-  channel: "test-channel"
-  voice_channel: "test-vchannel"
-  server_id: "TEST"
   player:
     queue:
       remote: false
