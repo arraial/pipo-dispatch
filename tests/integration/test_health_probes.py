@@ -4,7 +4,7 @@ from fastapi.testclient import TestClient
 from faststream.rabbit import TestRabbitBroker
 
 from pipo_dispatch.config import settings
-from pipo_dispatch._queues import get_router
+from pipo_dispatch._queues import get_broker, get_router
 from pipo_dispatch.app import create_app
 
 
@@ -12,9 +12,8 @@ from pipo_dispatch.app import create_app
 class TestHealthProbes:
     @pytest.fixture
     async def client(self):
-        router = get_router()
-        async with TestRabbitBroker(router.broker):
-            yield TestClient(create_app(router))
+        async with TestRabbitBroker(get_broker()):
+            yield TestClient(create_app(get_router()))
 
     def test_livez(self, client):
         response = client.get("/livez", timeout=settings.probes.liveness.timeout)
