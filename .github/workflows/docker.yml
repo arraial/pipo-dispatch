@@ -67,7 +67,7 @@ jobs:
       uses: docker/bake-action@v5
       with:
         push: false
-        targets: test_image
+        targets: test
         files: |
           ./docker-bake.hcl
           ${{ steps.meta.outputs.bake-file }}
