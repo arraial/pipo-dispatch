@@ -102,7 +102,7 @@ dist:
 
 .PHONY: image
 image: docs
-	docker build . -t $(APP):latest
+	docker buildx bake image-local
 
 .PHONY: test_image
 test_image:
