@@ -2,7 +2,7 @@
 [![License](https://img.shields.io/github/license/arraial/pipo-dispatch)](https://opensource.org/licenses/MIT)
 [![Build](https://github.com/arraial/pipo-dispatch/actions/workflows/docker.yml/badge.svg)](https://github.com/arraial/pipo-dispatch/actions/workflows/docker.yml)
 [![Version](https://img.shields.io/github/v/tag/arraial/pipo-dispatch)](https://github.com/arraial/pipo-dispatch/releases)
-[![Docker Image](https://img.shields.io/docker/image-size/arraial/pipo-dispatch/latest)](https://hub.docker.com/r/arraial/pipo_dispatch)
+[![Docker Image](https://img.shields.io/docker/image-size/arraial/pipo_dispatch/latest)](https://hub.docker.com/r/arraial/pipo_dispatch)
 [![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json)](https://python-poetry.org/)
 [![Sphinx](https://img.shields.io/badge/Docs-Sphinx-%230000?style=flat&logo=sphinx&color=%230A507A)](https://www.sphinx-doc.org/)
 
