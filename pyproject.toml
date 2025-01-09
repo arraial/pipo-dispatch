@@ -35,7 +35,7 @@ python = "^3.11"
 pydantic = "~2.9.0"
 dynaconf = { version = "~3.2.0", extras = ["yaml"] }
 fastapi = { version = "~0.115.4", extras = ["standard"] }
-faststream = { version = "0.5.33", extras = ["rabbit", "otel", "prometheus"] }
+faststream = { version = "0.5.34", extras = ["rabbit", "otel", "prometheus"] }
 
 [tool.poetry.group.opentelemetry.dependencies]
 opentelemetry-sdk = "^1.27"
