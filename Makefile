@@ -1,5 +1,3 @@
--include .env
-
 APP=pipo_dispatch
 CONFIG_PATH=pyproject.toml
 POETRY=poetry
@@ -8,8 +6,11 @@ PRINT=python -c "import sys; print(str(sys.argv[1]))"
 DOCUMENTATION=docs
 DIAGRAMS_FORMAT=plantuml
 TEST_FOLDER=./tests
+
+-include .env
+
 TEST_SECRETS:=$(shell realpath $(TEST_FOLDER)/.secrets.*)
-SECRETS_JSON=$(shell echo '{"queue_broker_url": "$(TEST_RABBITMQ_URL)"}')
+SECRETS_JSON=$(shell echo '{"TEST_RABBITMQ_URL": "$(TEST_RABBITMQ_URL)"}')
 
 .PHONY: help
 help:
@@ -76,7 +77,7 @@ lint: check vulture
 
 .PHONY: test_secrets_file
 test_secrets_file:
-	@echo '{"test": $(SECRETS_JSON)}' | jq . > $(TEST_FOLDER)/.secrets.json
+	$(POETRY) run dynaconf write yaml -y -e test -p "$(TEST_FOLDER)" -s queue_broker_url="${TEST_RABBITMQ_URL}"
 	@echo $(TEST_SECRETS)
 
 .PHONY: test
