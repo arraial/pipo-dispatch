@@ -1,5 +1,3 @@
--include .env
-
 APP=pipo_dispatch
 CONFIG_PATH=pyproject.toml
 POETRY=poetry
@@ -8,29 +6,31 @@ PRINT=python -c "import sys; print(str(sys.argv[1]))"
 DOCUMENTATION=docs
 DIAGRAMS_FORMAT=plantuml
 TEST_FOLDER=./tests
+
+-include .env
+
 TEST_SECRETS:=$(shell realpath $(TEST_FOLDER)/.secrets.*)
-SECRETS_JSON=$(shell echo '{"queue_broker_url": "$(TEST_RABBITMQ_URL)"}')
+SECRETS_JSON=$(shell echo '{"TEST_RABBITMQ_URL": "$(TEST_RABBITMQ_URL)"}')
 
 .PHONY: help
 help:
 	$(PRINT) "Usage:"
-	$(PRINT) "    help          		show this message"
-	$(PRINT) "    poetry_setup 			install poetry to manage python envs and workflows"
-	$(PRINT) "    setup         		build virtual environment and install dependencies"
-	$(PRINT) "    test_setup    		build virtual environment and install test dependencies"
-	$(PRINT) "    dev_setup     		build virtual environment and install dev dependencies"
-	$(PRINT) "    lint          		run dev utilities for code quality assurance"
-	$(PRINT) "    format        		run dev utilities for code format assurance"
-	$(PRINT) "    docs          		generate code documentation"
-	$(PRINT) "    metrics 				evaluate source code quality"
-	$(PRINT) "    test          		run test suite"
-	$(PRINT) "    test_secrets_file		use env variable to generate secrets file for test suite"
-	$(PRINT) "    coverage      		run coverage analysis"
-	$(PRINT) "    set_version   		set program version"
-	$(PRINT) "    dist          		package application for distribution"
-	$(PRINT) "    image         		build app docker image"
-	$(PRINT) "    test_image    		run test suite in a container"
-	$(PRINT) "    run_image     		run app docker image in a container"
+	$(PRINT) "    help          show this message"
+	$(PRINT) "    poetry_setup  install poetry to manage python envs and workflows"
+	$(PRINT) "    setup         build virtual environment and install dependencies"
+	$(PRINT) "    test_setup    build virtual environment and install test dependencies"
+	$(PRINT) "    dev_setup     build virtual environment and install dev dependencies"
+	$(PRINT) "    lint          run dev utilities for code quality assurance"
+	$(PRINT) "    format        run dev utilities for code format assurance"
+	$(PRINT) "    docs          generate code documentation"
+	$(PRINT) "    metrics       evaluate source code quality"
+	$(PRINT) "    test          run test suite"
+	$(PRINT) "    coverage      run coverage analysis"
+	$(PRINT) "    set_version   set program version"
+	$(PRINT) "    dist          package application for distribution"
+	$(PRINT) "    image         build app docker image"
+	$(PRINT) "    test_image    run test suite in a container"
+	$(PRINT) "    run_image     run app docker image in a container"
 
 .PHONY: poetry_setup
 poetry_setup:
@@ -76,7 +76,7 @@ lint: check vulture
 
 .PHONY: test_secrets_file
 test_secrets_file:
-	@echo '{"test": $(SECRETS_JSON)}' | jq . > $(TEST_FOLDER)/.secrets.json
+	$(POETRY) run dynaconf write yaml -y -e test -p "$(TEST_FOLDER)" -s queue_broker_url="${TEST_RABBITMQ_URL}"
 	@echo $(TEST_SECRETS)
 
 .PHONY: test

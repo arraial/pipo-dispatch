@@ -18,7 +18,7 @@ settings = Dynaconf(
     load_dotenv=True,
     dotenv_override=True,
     ignore_unknown_envvars=True,
-    settings_files=["settings.yaml", ".secrets.yaml", ".secrets.json"],
+    settings_files=["settings.yaml", ".secrets.yaml"],
 )
 
 # lazy evaluation, check on usage only
